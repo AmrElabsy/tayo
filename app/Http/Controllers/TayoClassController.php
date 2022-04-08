@@ -2,84 +2,70 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use App\Models\TayoClass;
 use Illuminate\Http\Request;
 
 class TayoClassController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+		$classes = TayoClass::all();
+        return view("classes.index", compact("classes"));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+		$request->validate($this->getRules());
+        // dd($request);
+
+		$class = TayoClass::create([
+			"name" => $request->name,
+			"description" => $request->description
+		]);
+
+		return redirect(route("class.index"));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\TayoClass  $tayoClass
-     * @return \Illuminate\Http\Response
-     */
-    public function show(TayoClass $tayoClass)
+    public function show($tayoClass)
     {
-        //
+		$tayoClass = TayoClass::find($tayoClass);
+		do {
+			$identity = rand(1000000, 9999999);
+		} while (Student::where("identity", $identity)->exists());
+
+//		dd($tayoClass->id);
+		return view("classes.show", compact("tayoClass", "identity"));
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\TayoClass  $tayoClass
-     * @return \Illuminate\Http\Response
-     */
     public function edit(TayoClass $tayoClass)
     {
-        //
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TayoClass  $tayoClass
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, TayoClass $tayoClass)
     {
-        //
+        $request->validate($this->getRules());
+
+		$tayoClass->update([
+			"name" => $request->name,
+			"description" => $request->description
+		]);
+
+		return redirect(route("class.index"));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\TayoClass  $tayoClass
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(TayoClass $tayoClass)
     {
-        //
+		$tayoClass->delete();
+		return redirect(route("class.index"));
     }
+
+	private function getRules() {
+		return [
+			"name" => "required|min:2",
+			"description" => "required|min:2"
+		];
+	}
 }

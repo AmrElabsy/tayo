@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class TayoClass extends Model
 {
+	protected $fillable = ["name", "description"];
     use HasFactory;
+
+	public function students() {
+		return $this->hasMany(Student::class);
+	}
 }

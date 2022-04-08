@@ -13,6 +13,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(["namespace" => "App\Http\Controllers"], function () {
+
+Route::get("", "HomeController@index")->name("home");
+Route::get("users", "HomeController@users")->name("home.users");
+
+	Route::resources([
+		"admin" => "AdminController",
+		"category" => "CategoryController",
+		"class" => "TayoClassController",
+		"post" => "PostController",
+		"product" => "ProductController",
+		"student" => "StudentController",
+	]);
 });
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
