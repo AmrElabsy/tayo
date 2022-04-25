@@ -36,7 +36,7 @@
 											<div class="col">
 												<div>
 													<label class="form-label">Class Name</label>
-													<input class="form-control" type="text" name="name">
+													<input class="form-control" type="text" name="name" value="{{ old("name") }}">
 												</div>
 											</div>
 										</div>
@@ -44,7 +44,7 @@
 											<div class="col">
 												<div>
 													<label class="form-label">Class small description</label>
-													<input class="form-control" type="text" name="description">
+													<input class="form-control" type="text" name="description" value="{{ old("description") }}">
 												</div>
 											</div>
 										</div>
@@ -71,11 +71,13 @@
 					<div class="card">
 						<div class="blog-box blog-list row">
 							<div class="col-xl-5 col-12">
-								<img class="img-fluid sm-100-w" src="{{ asset("assets/images/faq/1.jpg") }}" alt="">
+								<img class="img-fluid sm-100-w" src="{{ asset("storage/" . $class->image) }}" alt=""
+									 onerror="this.onerror=null;this.src='https://placeimg.com/300/300/arch';">
 							</div>
 							<div class="col-xl-7 col-12">
 								<div class="blog-details pt-1">
-									<div class="blog-date"><span>05</span> January 2023</div>
+									<div class="blog-date"><span>{{ $class->day_created }}</span> {{ $class->month_created }}
+										{{ $class->year_created }}</div>
 									<a href="{{ route("class.show", $class->id) }}">
 										<h6>{{ $class->name }}</h6>
 									</a>

@@ -12,4 +12,20 @@ class Student extends Model
 	public function user() {
 		return $this->belongsTo(User::class);
 	}
+
+	public function getNameAttribute() {
+		return $this->user->name;
+	}
+
+	public function getEmailAttribute() {
+		return $this->user->email;
+	}
+
+	public function getImageAttribute() {
+		return $this->user->image;
+	}
+
+	public function tayoClass() {
+		return $this->belongsTo(TayoClass::class);
+	}
 }

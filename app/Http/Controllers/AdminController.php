@@ -17,12 +17,25 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
-        dd($request);
+		$this->validate($request, [
+			'name' => 'required',
+			'email' => 'required|email|unique:admins',
+			'password' => 'required|min:6',
+		]);
+
+		$admin = new Admin;
+		$admin->name = $request->name;
+		$admin->email = $request->email;
+		$admin->password = bcrypt($request->password);
+		$admin->save();
+
+		return redirect()->back()->with("success", "Admin created successfully");
     }
 
     public function show(Admin $admin)
     {
-        //
+		$classes = TayoClass::all();
+		return view("users.admin", compact("admin", "classes"));
     }
 
     public function edit(Admin $admin)
@@ -39,4 +52,12 @@ class AdminController extends Controller
     {
         //
     }
+
+	private function getRules() {
+		return [
+			'name' => 'required',
+			'email' => 'required|email|unique:admins',
+			'password' => 'required|min:6',
+		];
+	}
 }

@@ -25,7 +25,9 @@ class StudentController extends Controller
 		$user->email = $request->email;
 		$user->password = bcrypt($request->password);
 		$user->role = 'student';
-		$user->uploadImage($request->file('image'));
+		if ($request->hasFile('image')) {
+			$user->uploadImage($request->file('image'));
+		}
 		$user->save();
 
 		$student = new Student();
@@ -38,7 +40,7 @@ class StudentController extends Controller
 		$student->tayo_class_id = $request->class;
 		$student->save();
 
-		return redirect()->route('class.show', $student->tayo_class_id);
+		return redirect()->route('class.show', $student->tayo_class_id)->with('success', 'Student added successfully');
     }
 
     public function show(Student $student)
@@ -60,16 +62,18 @@ class StudentController extends Controller
 		$student->phone = $request->phone;
 		$student->address = $request->address;
 		$student->tayo_class_id = $request->class;
-		$student->uploadImage($request->file('image'));
+		if ($request->file('image')) {
+			$student->user->uploadImage($request->file('image'));
+		}
 		$student->save();
 
-		return redirect()->route('class.show', $student->tayo_class_id);
+		return redirect()->route('class.show', $student->tayo_class_id)->with('success', 'Student updated successfully');
     }
 
     public function destroy(Student $student)
     {
 		$student->delete();
-		return redirect()->route('class.show', $student->tayo_class_id);
+		return redirect()->route('class.show', $student->tayo_class_id)->with('success', 'Student deleted successfully');
     }
 
 	private function getRules() {
