@@ -16,6 +16,14 @@ class TayoClass extends Model
 		return $this->hasMany(Student::class);
 	}
 
+	public function admins() {
+		return $this->belongsToMany(Admin::class, "admin_tayo_class");
+	}
+
+	public function getAdminAttribute() {
+		return $this->admins[0] ?? null;
+	}
+
 	public function uploadImage( $image ) {
 		$path = 'uploads/classes';
 

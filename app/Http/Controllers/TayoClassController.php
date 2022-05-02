@@ -2,29 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Student;
 use App\Models\TayoClass;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Integer;
 
 class TayoClassController extends Controller
 {
     public function index()
     {
 		$classes = TayoClass::all();
-        return view("classes.index", compact("classes"));
+		$admins = Admin::all();
+        return view("classes.index", compact("classes", "admins"));
     }
 
     public function store(Request $request)
     {
 		$request->validate($this->getRules());
-        // dd($request);
 
 		$class = TayoClass::create([
 			"name" => $request->name,
 			"description" => $request->description
 		]);
 
-		return redirect(route("class.index"));
+		if ($request->has("image")) {
+			$class->uploadImage($request->file("image"));
+		}
+
+		$class->admins()->attach($request->admin);
+
+		return redirect(route("class.index"))->with("success", "Class created successfully");
     }
 
     public function show($tayoClass)
@@ -34,18 +42,13 @@ class TayoClassController extends Controller
 			$identity = rand(1000000, 9999999);
 		} while (Student::where("identity", $identity)->exists());
 
-//		dd($tayoClass->id);
 		return view("classes.show", compact("tayoClass", "identity"));
-
     }
 
-    public function edit(TayoClass $tayoClass)
+    public function update(Request $request, int $tayoClassId)
     {
+		$tayoClass = TayoClass::find($tayoClassId);
 
-    }
-
-    public function update(Request $request, TayoClass $tayoClass)
-    {
         $request->validate($this->getRules());
 
 		$tayoClass->update([
@@ -53,13 +56,19 @@ class TayoClassController extends Controller
 			"description" => $request->description
 		]);
 
-		return redirect(route("class.index"));
+		if ($request->has("image")) {
+			$tayoClass->uploadImage($request->file("image"));
+		}
+
+		TayoClass::find($tayoClassId)->admins()->sync($request->admin);
+
+		return redirect(route("class.index"))->with("success", "Class updated successfully");
     }
 
     public function destroy(TayoClass $tayoClass)
     {
 		$tayoClass->delete();
-		return redirect(route("class.index"));
+		return redirect(route("class.index"))->with("success", "Class deleted successfully");
     }
 
 	private function getRules() {

@@ -21,4 +21,21 @@ class Admin extends Model
 	public function students() {
 		return $this->hasMany(Student::class);
 	}
+
+	public function getNameAttribute() {
+		return $this->user->name;
+	}
+
+	public function getEmailAttribute() {
+		return $this->user->email;
+	}
+
+	public function getImageAttribute() {
+		return $this->user->image;
+	}
+
+	public function tayoClasses() {
+		return $this->belongsToMany(TayoClass::class, "admin_tayo_class");
+	}
+
 }
