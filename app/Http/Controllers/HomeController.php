@@ -29,10 +29,7 @@ class HomeController extends Controller
     {
 		$posts = Post::all();
 
-//		dd($posts);
-
-		// TODO: Testing Posts retrieving
-        return view('home');
+        return view('home', compact('posts'));
     }
 
 	public function users() {

@@ -7,36 +7,29 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
-    }
+		$request->validate($this->getRules());
+
+		$post = new Post();
+
+		$post->content = $request->postcontent;
+		$post->label = $request->label;
+		$post->link = $request->link;
+		$post->user_id = $request->user()->id;
+
+		$post->save();
+
+		if($request->hasFile('images')) {
+			$post->uploadImages($request->file('images'));
+		}
+
+		if($request->hasFile('videos')) {
+			$post->uploadVideos($request->file('videos'));
+		}
+
+		return redirect()->route('home');
+	}
 
     /**
      * Display the specified resource.
@@ -82,4 +75,10 @@ class PostController extends Controller
     {
         //
     }
+
+	public function getRules() {
+		return [
+			'postcontent' => 'required',
+		];
+	}
 }

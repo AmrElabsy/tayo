@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(["namespace" => "App\Http\Controllers"], function () {
-
-Route::get("", "HomeController@index")->name("home");
-Route::get("users", "HomeController@users")->name("home.users");
+Auth::routes();
+Route::group(["namespace" => "App\Http\Controllers", "middleware" => "auth"], function () {
+	Route::get("", "HomeController@index")->name("home");
+	Route::get("users", "HomeController@users")->name("home.users");
 
 	Route::resources([
 		"admin" => "AdminController",
@@ -27,8 +27,5 @@ Route::get("users", "HomeController@users")->name("home.users");
 		"student" => "StudentController",
 	]);
 });
-
-
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

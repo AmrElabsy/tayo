@@ -7,16 +7,15 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
-    {
+	public function index() {
 		$products = Product::all();
 
 		return view('products.index', compact('products'));
 	}
 
-    public function store(Request $request)
-    {
-		$request->validate($this->getRules() );
+	public function store( Request $request ) {
+		$request->validate($this->getRules());
+
 		$product = new Product();
 
 		$product->name = $request->name;
@@ -24,33 +23,46 @@ class ProductController extends Controller
 		$product->price = $request->price;
 		$product->description = $request->description;
 
-    }
+		$product->save();
+		if($request->hasFile('images')) {
+			$product->uploadImages($request->file('images'));
+		}
 
-    public function show(Product $product)
-    {
+
+		return redirect()->route('product.index')->with('success', 'Product created successfully');
+	}
+
+	public function show( Product $product ) {
 		return view('products.show', compact('product'));
-    }
-    public function update(Request $request, Product $product)
-    {
-		$request->validate($this->getRules() );
+	}
 
-		$product->update($request->all());
+	public function update( Request $request, Product $product ) {
+		$request->validate($this->getRules());
 
-		return redirect()->route('products.index',)->with('success', 'Product updated successfully');
+		$product->name = $request->name;
+		$product->amount = $request->amount;
+		$product->price = $request->price;
+		$product->description = $request->description;
 
-    }
-    public function destroy(Product $product)
-    {
+		if($request->hasFile('images')) {
+			$product->uploadImages($request->file('images'));
+		}
+
+		$product->save();
+
+		return redirect()->route('product.show', $product->id)->with('success', 'Product updated successfully');
+	}
+
+	public function destroy( Product $product ) {
 		$product->delete();
 
 		return redirect()->route('products.index')->with('success', 'Product deleted successfully');
-    }
+	}
 
 	private function getRules() {
 		return [
 			'name' => 'required|string|max:255',
 			'price' => 'required|numeric',
-			'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 		];
 	}
 }

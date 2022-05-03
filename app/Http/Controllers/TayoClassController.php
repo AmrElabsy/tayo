@@ -30,6 +30,8 @@ class TayoClassController extends Controller
 			$class->uploadImage($request->file("image"));
 		}
 
+		$class->save();
+
 		$class->admins()->attach($request->admin);
 
 		return redirect(route("class.index"))->with("success", "Class created successfully");
@@ -59,6 +61,8 @@ class TayoClassController extends Controller
 		if ($request->has("image")) {
 			$tayoClass->uploadImage($request->file("image"));
 		}
+
+		$tayoClass->save();
 
 		TayoClass::find($tayoClassId)->admins()->sync($request->admin);
 
