@@ -24,6 +24,10 @@ class TayoClass extends Model
 		return $this->admins[0] ?? null;
 	}
 
+	public function categories() {
+		return $this->hasMany(Category::class);
+	}
+
 	public function uploadImage( $image ) {
 		$path = 'uploads/classes';
 

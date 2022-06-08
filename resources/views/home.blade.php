@@ -125,10 +125,21 @@
 
 											@if(isset($post->videos))
 												@foreach($post->videos as $video)
-
+														<div class="img-container" style="display: inline">
+															<div class="my-gallery" itemscope="" style="display: inline">
+																<figure itemprop="associatedMedia" itemscope=""
+																		style="display: inline"><a
+																			itemprop="contentUrl" data-size="1600x950">
+																<video src="{{ asset("storage/" . $video->path) }}" controls></video>
+																	</a>
+																	<figcaption itemprop="caption description">Image caption
+																		1
+																	</figcaption>
+																</figure>
+															</div>
+														</div>
 												@endforeach
 											@endif
-
 
 											<p>{{ $post->content }}</p>
 

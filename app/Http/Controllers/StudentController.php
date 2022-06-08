@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use function Symfony\Component\String\u;
 
 class StudentController extends Controller
@@ -69,6 +70,33 @@ class StudentController extends Controller
 
 		return redirect()->route('class.show', $student->tayo_class_id)->with('success', 'Student updated successfully');
     }
+
+	public function score(Request $request) {
+
+		dd($request->added, $request->removed);
+//		$studentsScores = $request->studentsscores;
+
+//		dd($studentsScores);
+		/**
+		 * foreach ($studentsScores as $studentId => $scores) {
+			$student = Student::find($studentId);
+
+			foreach ($scores as $score) {
+				if ($this->scoreNotExistForStudent($score, $student))
+				DB::table("category_student")
+					->insert(
+						[
+							"category_id" => $score,
+							"student_id" => $student->id,
+							"created_at" => now()
+						]
+					);
+			}
+
+		}
+		 */
+
+	}
 
     public function destroy(Student $student)
     {

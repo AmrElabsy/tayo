@@ -17,6 +17,7 @@ Auth::routes();
 Route::group(["namespace" => "App\Http\Controllers", "middleware" => "auth"], function () {
 	Route::get("", "HomeController@index")->name("home");
 	Route::get("users", "HomeController@users")->name("home.users");
+	Route::post("studentscore", "StudentController@score")->name("students.score");
 
 	Route::resources([
 		"admin" => "AdminController",
@@ -25,6 +26,7 @@ Route::group(["namespace" => "App\Http\Controllers", "middleware" => "auth"], fu
 		"post" => "PostController",
 		"product" => "ProductController",
 		"student" => "StudentController",
+		"score" => "ClassScoreController",
 	]);
 });
 

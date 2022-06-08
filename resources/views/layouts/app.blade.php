@@ -237,7 +237,7 @@
 									<span>Users</span></a>
 							</li>
 							<li class="sidebar-list">
-								<a class="sidebar-link sidebar-title link-nav" href="{{ route("class.index") }}">
+								<a class="sidebar-link sidebar-title link-nav" href="{{ route("score.index") }}">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 										 xmlns="http://www.w3.org/2000/svg">
 										<g>
