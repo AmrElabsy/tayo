@@ -33,7 +33,7 @@
 								<div class="follow">
 									<ul class="follow-list">
 										<li>
-											<div class="follow-num counter">325</div><span>Coins</span>
+											<div class="follow-num counter">{{ $student->score }}</div><span>Coins</span>
 										</li>
 									</ul>
 								</div>
@@ -111,314 +111,61 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-xl-8 col-lg-12 col-md-7 xl-65">
-					<div class="row">
-						<!-- Target post start-->
-						<div class="col-sm-12">
-							<div class="card">
-								<div class="card-header">
-									<h5 style="text-align: left">
-										From <span>1/3/2022</span> - To <span>8/3/2022</span>
-									</h5>
-								</div>
-								<div class="card-block row">
-									<div class="col-sm-12 col-lg-12 col-xl-12">
-										<div class="table-responsive">
-											<table class="table table-bordered checkbox-td-width">
-												<tbody>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox" checked>
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox">
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox" checked>
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox" checked>
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox" checked>
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td style="text-align: center" colspan="3">
-														total Score => 40 Coin
-													</td>
-												</tr>
-												</tbody>
-											</table>
-										</div>
+				<div class="col-xl-8 col-lg-12 col-md-7">
+					<div class="col-sm-12">
+						<div class="card">
+							<div class="card-header">
+								<h5 style="text-align: left">
+									History Scores
+								</h5>
+							</div>
+							<div class="card-block row">
+								<div class="col-sm-12 col-lg-12 col-xl-12">
+									<div class="table-responsive">
+										<table class="table table-bordered checkbox-td-width">
+											<thead>
+											<tr>
+												<td>Date</td>
+												@foreach($student->tayoClass->categories as $category)
+													<td>{{ $category->name }}</td>
+												@endforeach
+												<td>Totla</td>
+											</tr>
+											</thead>
+											<tbody>
+
+											<tr>
+												<td>10 Mar</td>
+												<td class="w-50">
+													<input style="width: 20px;height: 20px;" type="checkbox" checked disabled><br>
+													<span>10 Coins</span>
+												</td>
+												<td class="w-50">
+													<input style="width: 20px;height: 20px;" type="checkbox" disabled><br>
+													<span>10 Coins</span>
+												</td>
+												<td class="w-50">
+													<input style="width: 20px;height: 20px;" type="checkbox" checked disabled><br>
+													<span>10 Coins</span>
+												</td>
+												<td class="w-50">
+													<input style="width: 20px;height: 20px;" type="checkbox" disabled><br>
+													<span>10 Coins</span>
+												</td>
+												<td class="w-50">
+													<input style="width: 20px;height: 20px;" type="checkbox" checked disabled><br>
+													<span>10 Coins</span>
+												</td>
+												<td>30 Coin</td>
+											</tr>
+											</tbody>
+										</table>
 									</div>
 								</div>
 							</div>
 						</div>
-						<!-- Target post end-->
-						<!-- Target post start-->
-						<div class="col-sm-12">
-							<div class="card">
-								<div class="card-header">
-									<h5 style="text-align: left">
-										From <span>1/3/2022</span> - To <span>8/3/2022</span>
-									</h5>
-								</div>
-								<div class="card-block row">
-									<div class="col-sm-12 col-lg-12 col-xl-12">
-										<div class="table-responsive">
-											<table class="table table-bordered checkbox-td-width">
-												<tbody>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox" checked>
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox">
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox" checked>
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox" checked>
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox" checked>
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td style="text-align: center" colspan="3">
-														total Score => 40 Coin
-													</td>
-												</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- Target post end-->
-						<!-- Target post start-->
-						<div class="col-sm-12">
-							<div class="card">
-								<div class="card-header">
-									<h5 style="text-align: left">
-										From <span>1/3/2022</span> - To <span>8/3/2022</span>
-									</h5>
-								</div>
-								<div class="card-block row">
-									<div class="col-sm-12 col-lg-12 col-xl-12">
-										<div class="table-responsive">
-											<table class="table table-bordered checkbox-td-width">
-												<tbody>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox" checked>
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox">
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox" checked>
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox" checked>
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox" checked>
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td style="text-align: center" colspan="3">
-														total Score => 40 Coin
-													</td>
-												</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- Target post end-->
-						<!-- Target post start-->
-						<div class="col-sm-12">
-							<div class="card">
-								<div class="card-header">
-									<h5 style="text-align: left">
-										From <span>1/3/2022</span> - To <span>8/3/2022</span>
-									</h5>
-								</div>
-								<div class="card-block row">
-									<div class="col-sm-12 col-lg-12 col-xl-12">
-										<div class="table-responsive">
-											<table class="table table-bordered checkbox-td-width">
-												<tbody>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox" checked>
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox">
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox" checked>
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox" checked>
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox" checked>
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td style="text-align: center" colspan="3">
-														total Score => 40 Coin
-													</td>
-												</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- Target post end-->
-						<!-- Target post start-->
-						<div class="col-sm-12">
-							<div class="card">
-								<div class="card-header">
-									<h5 style="text-align: left">
-										From <span>1/3/2022</span> - To <span>8/3/2022</span>
-									</h5>
-								</div>
-								<div class="card-block row">
-									<div class="col-sm-12 col-lg-12 col-xl-12">
-										<div class="table-responsive">
-											<table class="table table-bordered checkbox-td-width">
-												<tbody>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox" checked>
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox">
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox" checked>
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox" checked>
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td>Eating Score</td>
-													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox" checked>
-													</td>
-													<td><span>10 Coins</span></td>
-												</tr>
-												<tr>
-													<td style="text-align: center" colspan="3">
-														total Score => 40 Coin
-													</td>
-												</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- Target post end-->
 					</div>
+
 				</div>
 			</div>
 		</div>

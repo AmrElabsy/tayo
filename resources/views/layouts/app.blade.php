@@ -138,6 +138,7 @@
 								</form>
 							@else
 								<a href="{{ route("login") }}" class="btn btn-default"><i data-feather="log-in"></i> Log in</a>
+								<a href="{{ route("register") }}" class="btn btn-default"><i data-feather="log-in"></i> Register</a>
 							@endif
 						</div>
 					</li>
@@ -257,7 +258,7 @@
 									<span>Score</span></a>
 							</li>
 							<li class="sidebar-list">
-								<a class="sidebar-link sidebar-title link-nav" href="compitition-classes.html">
+								<a class="sidebar-link sidebar-title link-nav" href="{{ route("competition.index") }}">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 										 xmlns="http://www.w3.org/2000/svg">
 										<g>

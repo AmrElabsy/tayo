@@ -27,6 +27,7 @@ Route::group(["namespace" => "App\Http\Controllers", "middleware" => "auth"], fu
 		"product" => "ProductController",
 		"student" => "StudentController",
 		"score" => "ClassScoreController",
+		"competition" => "CompetitionController",
 	]);
 });
 

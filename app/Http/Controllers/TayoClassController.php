@@ -31,9 +31,7 @@ class TayoClassController extends Controller
 		}
 
 		$class->save();
-
 		$class->admins()->attach($request->admin);
-
 		return redirect(route("class.index"))->with("success", "Class created successfully");
     }
 
@@ -50,7 +48,6 @@ class TayoClassController extends Controller
     public function update(Request $request, int $tayoClassId)
     {
 		$tayoClass = TayoClass::find($tayoClassId);
-
         $request->validate($this->getRules());
 
 		$tayoClass->update([
@@ -63,14 +60,11 @@ class TayoClassController extends Controller
 		}
 
 		$tayoClass->save();
-
 		TayoClass::find($tayoClassId)->admins()->sync($request->admin);
-
 		return redirect(route("class.index"))->with("success", "Class updated successfully");
     }
 
-    public function destroy(TayoClass $tayoClass)
-    {
+    public function destroy(TayoClass $tayoClass) {
 		$tayoClass->delete();
 		return redirect(route("class.index"))->with("success", "Class deleted successfully");
     }

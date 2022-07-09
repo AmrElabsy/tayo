@@ -6,6 +6,7 @@ use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use function Symfony\Component\String\u;
 
 class StudentController extends Controller
@@ -46,6 +47,29 @@ class StudentController extends Controller
 
     public function show(Student $student)
     {
+		/*
+		$categories = $student->categories;
+		$firstWeek = $categories[0]->pivot->created_at->year . $categories[0]->pivot->created_at->week;
+		$current_week = date("oW");
+
+		$firstWeek = 202201;
+		$firstWeek = $categories[0]->pivot->created_at->week;
+		echo date('M d',strtotime($firstWeek));
+		dd($firstWeek, $current_week);
+		*/
+
+		$weeks = [];
+		$day = date('M d',strtotime("1 1 2022"));
+		while (time() > strtotime($day)) {
+			$weeks[] = $day;
+			$day = date("M d", strtotime($day . " + 7 days"));
+
+		}
+//		echo date("M d", strtotime($firstDay . " + 7 days"));
+
+		dd($weeks);
+
+
 		return view('students.show', compact('student'));
     }
 
@@ -72,30 +96,30 @@ class StudentController extends Controller
     }
 
 	public function score(Request $request) {
+		$added = json_decode($request->added);
+		$removed = json_decode($request->removed);
 
-		dd($request->added, $request->removed);
-//		$studentsScores = $request->studentsscores;
-
-//		dd($studentsScores);
-		/**
-		 * foreach ($studentsScores as $studentId => $scores) {
-			$student = Student::find($studentId);
-
+		foreach ($added as $studentId => $scores) {
 			foreach ($scores as $score) {
-				if ($this->scoreNotExistForStudent($score, $student))
 				DB::table("category_student")
-					->insert(
-						[
-							"category_id" => $score,
-							"student_id" => $student->id,
-							"created_at" => now()
-						]
-					);
+					->insert([
+						"category_id" => $score,
+						"student_id" => $studentId,
+						"created_at" => now()
+					]);
 			}
-
 		}
-		 */
 
+		foreach ($removed as $studentId => $scores) {
+			foreach ($scores as $score) {
+				DB::table("category_student")
+					->where("student_id", "=", $studentId)
+					->where("category_id", "=", $score)
+					->orderBy("id", "desc")->limit(1)->delete();
+			}
+		}
+
+		return Redirect::back();
 	}
 
     public function destroy(Student $student)

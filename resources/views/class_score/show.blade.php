@@ -192,7 +192,7 @@
 							<div style="display: inline-block" class="avatar">
 								<img class="img-50 rounded-circle" src="{{ asset("storage/" . $student->image) }}" alt="#">
 							</div>
-							{{ $student->name }}
+							<a href="{{ route("student.show", $student->id) }}">{{ $student->name }}</a>
 						</h5>
 					</div>
 					<div>
@@ -206,7 +206,14 @@
 													<td>{{ $category->name }}</td>
 													<td>{{ $category->time }} Week</td>
 													<td class="w-50">
-														<input style="width: 20px;height: 20px;" type="checkbox" name="{{ $student->id }}" value="{{ $category->id }}" onchange="handleChange(this);">
+														<input style="width: 20px;height: 20px;"
+															   type="checkbox"
+															   @if( $student->done_in_current_time( $category->id) )
+															   		checked
+															   @endif
+															   name="{{ $student->id }}"
+															   value="{{ $category->id }}"
+															   onchange="handleChange(this);">
 													</td>
 													<td><span>{{ $category->points }} Coins</span></td>
 												</tr>
@@ -251,7 +258,10 @@
 		function addToAdded(name, value) {
 			let added = $("#added").val();
 			added = JSON.parse(added);
-			added[name] = value;
+			if(!(name in added)) {
+				added[name] = [];
+			}
+			added[name].push(value);
 			added = JSON.stringify(added);
 			$("#added").val(added);
 		}
@@ -261,7 +271,10 @@
 		function addToRemoved(name, value) {
 			var removed = $("#removed").val();
 			removed = JSON.parse(removed);
-			removed[name] = value;
+			if(!(name in removed)) {
+				removed[name] = [];
+			}
+			removed[name].push(value);
 			removed = JSON.stringify(removed);
 			$("#removed").val(removed);
 		}
@@ -269,15 +282,14 @@
 		function removeFromAdded(name, value) {
 			var added = $("#added").val();
 			added = JSON.parse(added);
-			delete added[name];
+			added[name].splice(added[name].indexOf(value), 1);
 			added = JSON.stringify(added);
 			$("#added").val(added);
 		}
-
 		function removeFromRemoved(name, value) {
 			var removed = $("#removed").val();
 			removed = JSON.parse(removed);
-			delete removed[name];
+			removed[name].splice(removed[name].indexOf(value), 1);
 			removed = JSON.stringify(removed);
 			$("#removed").val(removed);
 		}
@@ -285,13 +297,13 @@
 		function inAdded(name, value) {
 			var added = $("#added").val();
 			added = JSON.parse(added);
-			return added[name] === value;
+			return name in added && added[name].includes(value);
 		}
 
 		function inRemoved(name, value) {
 			var removed = $("#removed").val();
 			removed = JSON.parse(removed);
-			return removed[name] === value;
+			return name in removed && removed[name].includes(value);
 		}
 	</script>
 @endsection
